@@ -5,19 +5,17 @@ import { PostApiResult } from './models/Post.api-result.model';
 @Component()
 export class ApiPostClientService {
 
-    private baseUrl = 'https://jsonplaceholder.typicode.com/posts';
-
     constructor(
         private requestService: ApiReqService,
     ) {}
 
     public async getPost(id: number): Promise<PostApiResult> {
-        const result: any[] = await this.requestService.get(`${this.baseUrl}/${id}`);
+        const result: any[] = await this.requestService.get(`${process.env.API_URL}/posts/${id}`);
         return new PostApiResult(result);
     }
 
     public async getAllPosts(): Promise<PostApiResult[]> {
-        const result: any[] = await this.requestService.get(this.baseUrl);
+        const result: any[] = await this.requestService.get(`${process.env.API_URL}/posts`);
         return result.map(p => new PostApiResult(p));
     }
 }

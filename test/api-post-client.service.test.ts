@@ -13,6 +13,9 @@ import { ApiReqModule, ApiReqService } from 'nst-demo-api-req-module';
 chai.use(sinonChai);
 
 const expect = chai.expect;
+const mockUrl = 'https://mockUrl.com';
+
+process.env.API_URL = mockUrl;
 
 describe('ApiPostClientService', () => {
     const mockPosts = [
@@ -57,7 +60,7 @@ describe('ApiPostClientService', () => {
         });
 
         it('should call requestService get method', () => {
-            expect(reqServicestub).to.have.been.called;
+            expect(reqServicestub).to.have.been.calledWith(`${mockUrl}/posts/1`);
         });
 
         it('should return an instance of PostApiResult', () => {
@@ -84,7 +87,7 @@ describe('ApiPostClientService', () => {
         });
 
         it('should call requestService get method', () => {
-            expect(reqServicestub).to.have.been.called;
+            expect(reqServicestub).to.have.been.calledWith(`${mockUrl}/posts`);
         });
 
         it('should return instances of PostApiResult as an array', () => {
